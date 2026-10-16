@@ -1,0 +1,225 @@
+/* ==========================================================================
+   SISTEMA DE DISEÑO EDITORIAL & LIQUID GLASS — MARÍA ALEJANDRA BULA GARCÍA
+   Paleta Estricta:
+   - Blanco Predominante: #FDFDFD
+   - Rosa Claro (Acento): #F7D9EC
+   - Gris Claro (Bordes y Neutros): #E7E7E7
+   - Texto: Negro carbón suave #18181b / #3f3f46
+   ========================================================================== */
+
+:root {
+  /* Paleta Base Estricta */
+  --bg-primary: #FDFDFD;
+  --bg-secondary: #F8F7FA;
+  --bg-tertiary: #F2EEF5;
+  --bg-card: rgba(255, 255, 255, 0.78);
+  --bg-card-hover: rgba(255, 255, 255, 0.92);
+
+  /* Acento Rosa Claro de la Hoja de Vida */
+  --accent-pink: #F7D9EC;
+  --accent-pink-soft: rgba(247, 217, 236, 0.45);
+  --accent-pink-glow: rgba(247, 217, 236, 0.65);
+  --accent-pink-deep: #e8b0d4;
+  --accent-gradient: linear-gradient(135deg, #f7d9ec 0%, #fae8f4 50%, #edd3e6 100%);
+  --accent-gradient-text: linear-gradient(135deg, #18181b 0%, #4a3847 60%, #8c4d79 100%);
+
+  /* Neutros & Bordes */
+  --border-color: #E7E7E7;
+  --border-subtle: rgba(231, 231, 231, 0.7);
+  --border-glass: rgba(255, 255, 255, 0.85);
+  --border-hover: #d8b8ce;
+
+  /* Tipografía - Texto Oscuro de Gran Contraste */
+  --text-primary: #18181b;
+  --text-secondary: #3f3f46;
+  --text-muted: #71717a;
+  --text-accent: #7c2d61;
+
+  /* Fuentes */
+  --font-primary: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-delicate: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-mono: "Plus Jakarta Sans", "Inter", sans-serif;
+
+  /* Bordes Redondeados */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* Sombras Suaves */
+  --shadow-sm: 0 2px 8px rgba(24, 24, 27, 0.04);
+  --shadow-md: 0 8px 24px rgba(24, 24, 27, 0.06);
+  --shadow-lg: 0 16px 48px rgba(24, 24, 27, 0.08);
+  --shadow-glass: 0 8px 32px 0 rgba(140, 77, 121, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+
+  /* Transiciones */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --container-max: 1200px;
+  --section-padding: 100px 0;
+  --navbar-height: 76px;
+}
+
+/*------- Reset Global -------*/
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/*------- Tipografía Editorial -------*/
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: var(--font-primary);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/*------- Selección -------*/
+
+::selection {
+  background: var(--accent-pink);
+  color: var(--text-primary);
+}
+
+/*------- Barra de Desplazamiento -------*/
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d8d8d8;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-pink-deep);
+}
+
+/*------- Foco Accesibilidad -------*/
+
+:focus-visible {
+  outline: 2px solid var(--accent-pink-deep);
+  outline-offset: 3px;
+}
+
+/*------- Animación Revelado al Scroll -------*/
+
+.revelar-scroll {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+.revelar-scroll.revelado {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/*------- Utilidades Editoriales -------*/
+
+.contenedor {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.etiqueta-seccion {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.etiqueta-seccion::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background: var(--accent-pink-deep);
+  border-radius: 2px;
+}
+
+.titulo-seccion {
+  font-family: var(--font-serif);
+  font-size: clamp(2.1rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.descripcion-seccion {
+  font-size: 1.08rem;
+  color: var(--text-secondary);
+  max-width: 640px;
+  line-height: 1.7;
+}
+
+/* Organic Pink Aura Elements (Visible behind Liquid Glass) */
+.organic-aura {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}

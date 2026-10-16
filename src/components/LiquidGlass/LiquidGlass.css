@@ -1,0 +1,356 @@
+/* ==========================================================================
+   LIQUID GLASS STYLING — APPLE LIQUID GLASS EFFECT
+   Source & Inspiration: https://github.com/rdev/liquid-glass-react
+   Features:
+   - Physical SVG displacement edge refraction
+   - Dual-masked prismatic specular border highlight
+   - Frosted backdrop blur & saturation
+   - Dynamic cursor angle sheen
+   - High legibility with original typography preserved
+   ========================================================================== */
+
+:root {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --light-angle: 135deg;
+}
+
+/* Base Wrapper */
+.liquid-glass-wrapper {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 18px 45px -10px rgba(0, 0, 0, 0.1),
+    0 4px 14px 0 rgba(140, 77, 121, 0.05),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 2px 0 rgba(247, 217, 236, 0.3);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s ease,
+              border-color 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+/* Hover State */
+.liquid-glass-wrapper:hover {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 26px 54px -12px rgba(0, 0, 0, 0.14),
+    0 8px 24px -4px rgba(140, 77, 121, 0.12),
+    0 0 30px rgba(247, 217, 236, 0.45),
+    inset 0 1.5px 3px 0 #ffffff,
+    inset 0 -1px 2px 0 rgba(247, 217, 236, 0.5);
+}
+
+/* 1. Frosted Liquid Backdrop */
+.liquid-glass-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(255, 250, 253, 0.28) 45%,
+    rgba(255, 255, 255, 0.56) 100%
+  );
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  transition: background 0.3s ease;
+}
+
+.liquid-glass-wrapper:hover .liquid-glass-backdrop {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.68) 0%,
+    rgba(255, 250, 253, 0.42) 50%,
+    rgba(255, 255, 255, 0.76) 100%
+  );
+}
+
+/* 2. Prismatic Specular Bevel (Apple Glass Refractive Edge) */
+.liquid-glass-specular-edge {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  padding: 1.5px;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  background: linear-gradient(
+    var(--light-angle, 135deg),
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.4) 30%,
+    rgba(247, 217, 236, 0.65) 65%,
+    rgba(255, 255, 255, 0.92) 100%
+  );
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 1),
+    inset 0 -1px 2px rgba(247, 217, 236, 0.35);
+  transition: opacity 0.25s ease;
+}
+
+/* 3. Dynamic Cursor Light Sheen */
+.liquid-glass-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(247, 217, 236, 0.35) 40%,
+    transparent 75%
+  );
+}
+
+.liquid-glass-wrapper:hover .liquid-glass-sheen {
+  opacity: 1;
+}
+
+/* 4. Foreground Content */
+.liquid-glass-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   VARIANTS
+   ========================================================================== */
+
+/* Variant: Card */
+.liquid-glass-wrapper--card {
+  padding: 28px;
+}
+
+/* Variant: Floating Navigation Pill Capsule */
+.liquid-glass-wrapper--nav {
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 16px 40px -8px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.03),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-wrapper--nav:hover {
+  transform: none;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 20px 48px -6px rgba(0, 0, 0, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.04),
+    inset 0 1.5px 2px #ffffff;
+}
+
+/* Variant: Button */
+.liquid-glass-wrapper--button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.liquid-glass-wrapper--button:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.liquid-glass-wrapper--button:active {
+  transform: scale(0.97);
+}
+
+/* Variant: Badge & Pill */
+.liquid-glass-wrapper--badge,
+.liquid-glass-wrapper--pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: 0 4px 16px rgba(140, 77, 121, 0.08);
+}
+
+/* ==========================================================================
+   PROFILE INFO CARD (Identical Layout to User Reference Image)
+   ========================================================================== */
+.liquid-user-info-card {
+  width: 100%;
+  max-width: 440px;
+  color: var(--text-primary);
+  user-select: none;
+}
+
+.liquid-user-info-header {
+  font-family: var(--font-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.liquid-user-info-header::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(24, 24, 27, 0.15) 0%, transparent 100%);
+}
+
+.liquid-user-info-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.liquid-user-info-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(247, 217, 236, 0.85) 0%, rgba(255, 255, 255, 0.9) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 14px rgba(140, 77, 121, 0.18), inset 0 1px 2px #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.liquid-user-info-names {
+  display: flex;
+  flex-direction: column;
+}
+
+.liquid-user-info-name {
+  font-family: var(--font-serif);
+  font-size: 1.28rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.liquid-user-info-title {
+  font-family: var(--font-primary);
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.liquid-user-info-table {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(231, 231, 231, 0.6);
+}
+
+.liquid-user-info-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: center;
+  font-size: 0.92rem;
+}
+
+.liquid-user-info-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.liquid-user-info-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.liquid-user-info-value a:hover {
+  color: var(--accent-pink-deep);
+  text-decoration: underline;
+}
+
+/* Compact variant for Hero to avoid covering portrait */
+.liquid-user-info-card--compact {
+  max-width: 100%;
+}
+
+.liquid-user-info-card--compact .liquid-user-info-profile {
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.liquid-user-info-avatar--compact {
+  width: 36px;
+  height: 36px;
+  font-size: 0.85rem;
+}
+
+.liquid-user-info-card--compact .liquid-user-info-name {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.liquid-user-info-card--compact .liquid-user-info-title {
+  font-size: 0.70rem;
+}
+
+.liquid-user-info-table--compact {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(231, 231, 231, 0.5);
+}
+
+.liquid-user-info-card--compact .liquid-user-info-row {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+.liquid-user-info-card--compact .liquid-user-info-label {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 0.70rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.liquid-user-info-card--compact .liquid-user-info-value {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.74rem;
+  word-break: break-word;
+}
+
+.liquid-user-info-card--compact .liquid-user-info-value a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.liquid-user-info-card--compact .liquid-user-info-value a:hover {
+  color: var(--accent-pink-deep);
+  text-decoration: underline;
+}
+
