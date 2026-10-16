@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="editorial-footer__meta">
           <span className="editorial-footer__name">{portfolioData.personal.name}</span>
           <span className="editorial-footer__copy">
-            © {new Date().getFullYear()} · Portafolio Profesional de Comunicación Social. Estética Liquid Glass & Editorial.
+            © {new Date().getFullYear()} · {portfolioData.personal.title}. Estética Liquid Glass & Editorial.
           </span>
         </div>
 

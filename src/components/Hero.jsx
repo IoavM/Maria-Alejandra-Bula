@@ -23,7 +23,7 @@ export default function Hero() {
         <div className="hero-editorial">
           <div className="hero-pill-badge">
             <span className="hero-pill-dot" />
-            <span>Comunicación Pública & Organizacional</span>
+            <span>{personal.title}</span>
           </div>
 
           <h1 className="hero-headline">
@@ -125,7 +125,7 @@ export default function Hero() {
                   </div>
                   <div className="liquid-user-info-names">
                     <h3 className="liquid-user-info-name">{personal.name}</h3>
-                    <span className="liquid-user-info-title">Comunicadora Social & Periodista</span>
+                    <span className="liquid-user-info-title">{personal.title}</span>
                   </div>
                 </div>
 
