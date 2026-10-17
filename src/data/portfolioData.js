@@ -1,7 +1,7 @@
 export const portfolioData = {
   personal: {
     name: "María Alejandra Bula García",
-    title: "Frontend & Software Developer | UI/UX Designer",
+    title: "Comunicadora Social · Estrategia, Periodismo & Narrativa",
     subtitle:
       "Estudiante de Comunicación Social con énfasis en Comunicación Pública en la Universidad EAFIT. Experiencia en comunicación organizacional, redacción periodística galardonada, relaciones públicas y creación de contenidos estratégicos.",
     location: "Medellín, Colombia",

@@ -38,7 +38,7 @@ export default function Navbar() {
               <span className="nav-brand__initials">MAB</span>
               <div className="nav-brand__meta">
                 <span className="nav-brand__name">{portfolioData.personal.name}</span>
-                <span className="nav-brand__title">{portfolioData.personal.title}</span>
+                <span className="nav-brand__title">Comunicadora Social · EAFIT</span>
               </div>
             </a>
 
